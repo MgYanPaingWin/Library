@@ -1,6 +1,7 @@
 import React from 'react'
 import Human_Nature from "../assets/Human_Nature.jpg"
 import useFetch from "../hooks/useFetch";
+import { Link } from 'react-router-dom';
 
 export default function BookList() {
 
@@ -19,7 +20,8 @@ export default function BookList() {
       {!!books && (
         <div className='grid grid-cols-2 md:grid-cols-4 gap-4 my-3'>
         {books.map((b) => (
-          <div className='p-4 border border-1' key={b.id}>
+          <Link to={`/books/${b.id}`} key={b.id}>
+            <div className='p-4 border border-1'>
             <img src={Human_Nature} alt="" />
             <div className='text-center space-y-2 mt-3'>
               <h1>{b.title}</h1>
@@ -32,6 +34,7 @@ export default function BookList() {
               </div>
             </div>
           </div>
+          </Link>
         ))}
       </div>
       )}
