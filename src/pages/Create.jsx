@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Create() {
-
-  let [title,setTitle]=useState('');
-  let [description,setDescription]=useState('');
-  let [newcategory,setnewCategory]=useState('');
+  let [title, setTitle] = useState("");
+  let [description, setDescription] = useState("");
+  let [newcategory, setnewCategory] = useState("");
+  let [categories, setCategories] = useState(["JS", "React"]);
 
   return (
     <form class="w-full max-w-lg mx-auto mt-5">
@@ -19,10 +19,10 @@ export default function Create() {
           </label>
           <input
             value={title}
-            onChange={(e)=>setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-password"
-            type="password"
+            type="text"
             placeholder="Book Title"
           />
         </div>
@@ -38,10 +38,10 @@ export default function Create() {
           </label>
           <textarea
             value={description}
-            onChange={(e)=>setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             id="grid-password"
-            type="password"
+            type="text"
             placeholder="Book Description"
           />
         </div>
@@ -57,30 +57,42 @@ export default function Create() {
           </label>
           <div className="flex items-center space-x-2">
             <input
-            value={newcategory}
-            onChange={(e)=>setnewCategory(e.target.value)}
-            class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            id="grid-password"
-            type="password"
-            placeholder="Book Category"
-          />
-          <button className="bg-primary p-1 rounded-lg mb-3">
-            <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6 p-1 text-white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              value={newcategory}
+              onChange={(e) => setnewCategory(e.target.value)}
+              class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              id="grid-password"
+              type="text"
+              placeholder="Book Category"
             />
-          </svg>
-          </button>
+            <button className="bg-primary p-1 rounded-lg mb-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6 p-1 text-white"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+            </button>
           </div>
+        </div>
+
+        <div className="flex flex-wrap">
+          {categories.map((c) => (
+            <span
+              key={c}
+              className="mx-1 my-1 text-white rounded-full px-2 py-1 text-sm bg-primary"
+            >
+              {" "}
+              {c}
+            </span>
+          ))}
         </div>
 
         <button className="text-white bg-primary px-3 py-2 rounded-2xl flex justify-center items-center gap-1 w-full">
