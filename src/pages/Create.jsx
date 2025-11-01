@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 export default function Create() {
   let [title, setTitle] = useState("");
@@ -7,13 +8,26 @@ export default function Create() {
   let [newcategory, setnewCategory] = useState("");
   let [categories, setCategories] = useState(["JS", "React"]);
 
+  let {setPostData}=useFetch('http://localhost:3000/books',"POST");
+
   let addCategory = (e) => {
      setCategories(prevState=>[newcategory,...prevState])
      setnewCategory("");
   }
 
+  let addBook = (e) => {
+    e.preventDefault();
+
+    let data={
+      title,
+      description,
+      categories
+    }
+    setPostData(data);
+  }
+
   return (
-    <form className="w-full max-w-lg mx-auto mt-5">
+    <form className="w-full max-w-lg mx-auto mt-5" onSubmit={addBook}>
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">
           <label

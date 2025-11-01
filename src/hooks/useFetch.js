@@ -1,19 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-function useFetch(url, _options) {
+function useFetch(url,method="GET") {
   let [data, setData] = useState(null);
+  let [postData, setPostData] = useState(null);
   let [loading, setLoading] = useState(false);
   let [error, setError] = useState(null);
-  let options = useRef(_options).current;
 
   useEffect(() => {
-    console.log(options);
     let abortController = new AbortController();
     let signal = abortController.signal;
 
     setLoading(true);
+
+    if(method==="POST"){
+      console.log(postData);
+    } 
+
     fetch(url, {
       signal,
+      method
     })
       .then((res) => {
         if (!res.ok) {
@@ -34,8 +39,8 @@ function useFetch(url, _options) {
     return () => {
       abortController.abort();
     };
-  }, [url, options]);
-  return { data, loading, error };
+  }, [url,postData]);
+  return {setPostData, data, loading, error };
 }
 
 export default useFetch;
