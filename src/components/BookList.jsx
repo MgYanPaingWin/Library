@@ -10,7 +10,7 @@ export default function BookList() {
 
   let search=params.get('search');
 
-  let {data : books,loading,error} =useFetch(`http://localhost:3000/books?q=${search}`);
+  let {data : books,loading,error} =useFetch(`http://localhost:3000/books${search ? `?q=${search}` : ''}`);
 
   if (error) {
     return <p>{error}</p>

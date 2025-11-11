@@ -1,7 +1,14 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  let [search, setSearch] = useState("");
+  let navigate=useNavigate();
+
+  let handleSearch = () => {
+      navigate('/?search='+search);
+  };
+
   return (
     <nav className="border border-b-1">
       <ul className="flex justify-between items-center p-3 max-w-6xl mx-auto">
@@ -22,12 +29,23 @@ export default function Navbar() {
           </svg>
 
           <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             type="text"
             placeholder="search books..."
             className="outline-none"
           />
+          <button
+            onClick={handleSearch}
+            className="text-white bg-primary px-3 py-2 rounded-2xl flex items-center gap-1"
+          >
+            <span className="hidden md:block">Search</span>
+          </button>
         </li>
-        <NavLink to="/" className="flex items-center gap-3 md:-ml-32 cursor-pointer">
+        <NavLink
+          to="/"
+          className="flex items-center gap-3 md:-ml-32 cursor-pointer"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -52,7 +70,7 @@ export default function Navbar() {
           {/* create book */}
           <NavLink
             to="/create"
-            className="text-white bg-primary px-3 py-2 rounded-2xl flex items-center gap-1"
+            className="text-white bg-primary px-3 py-1 rounded-2xl flex items-center gap-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
