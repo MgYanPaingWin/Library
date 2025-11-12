@@ -6,7 +6,7 @@ export default function Navbar() {
   let navigate=useNavigate();
 
   let handleSearch = () => {
-      navigate('/?search='+search);
+    navigate('/?search='+search)
   };
 
   return (
