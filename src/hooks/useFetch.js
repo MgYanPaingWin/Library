@@ -17,7 +17,7 @@ function useFetch(url, method = "GET") {
 
     setLoading(true);
 
-     let fetchData = () => {
+    let fetchData = () => {
       fetch(url, options)
         .then((res) => {
           if (!res.ok) {
@@ -36,20 +36,19 @@ function useFetch(url, method = "GET") {
     };
 
     if (method === "POST" && postData) {
-      options = {  
+      options = {
         ...options,
-        header: {
+        headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(postData),
-      }
-      fetchData()
-    }
-
-    if (method==="GET") {
+      };
       fetchData();
     }
-   
+
+    if (method === "GET") {
+      fetchData();
+    }
 
     //cleanup function
     return () => {

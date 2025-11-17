@@ -50,7 +50,14 @@
       ]
     },
     {
-      "id": "NAm7GrF"
+      "title": "title",
+      "description": "desc",
+      "categories": [
+        "PHP",
+        "JS",
+        "React"
+      ],
+      "id": "462eh8g"
     }
   ]
 }
