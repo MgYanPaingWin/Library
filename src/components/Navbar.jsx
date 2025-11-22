@@ -12,7 +12,7 @@ export default function Navbar() {
     navigate('/?search='+search)  
   };
 
-  let {theme,changeTheme}=useTheme();
+  let {isDark,changeTheme}=useTheme();
 
   return (
     <nav className={`border border-b-1`}>
@@ -103,8 +103,8 @@ export default function Navbar() {
             />
           </div>
           <div className="cursor-pointer">
-            {theme=== 'dark' && <img src={lightIcon} alt="" className="w-8" onClick={()=>changeTheme('light')}/>}
-            {theme==='light' && <img src={darkIcon} alt="" className="w-8"onClick={()=>changeTheme('dark')}/> }
+            {isDark && <img src={lightIcon} alt="" className="w-8" onClick={()=>changeTheme('light')}/>}
+            {!isDark && <img src={darkIcon} alt="" className="w-8"onClick={()=>changeTheme('dark')}/> }
           </div>
         </li>
       </ul>
