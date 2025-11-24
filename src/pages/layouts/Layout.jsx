@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useRef } from "react";
 import Navbar from "../../components/Navbar";
@@ -12,6 +12,16 @@ export default function Layout() {
   const nodeRef = useRef(null);
 
   let {isDark}=useTheme();
+
+  useEffect(()=>{
+    let body=document.body;
+    if (isDark) {
+      body.classList.add('bg-dbg')
+    }else{  
+      body.classList.remove('bg-dbg')
+    }
+
+  },[isDark])
 
   return (
     <div className={isDark ? 'bg-dbg' : 'bg-white'}>
