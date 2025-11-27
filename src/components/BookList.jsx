@@ -19,10 +19,12 @@ export default function BookList() {
   useEffect(function(){
     let ref =collection(db,'books');
     getDocs(ref).then(docs=>{
+      let books=[];
       docs.forEach(doc=>{
         let book={id : doc.id, ...doc.data()};
-        console.log(book);
+        books.push(book);
       })
+      setBooks(books);
     })
   },[])
 
