@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Human_Nature from "../assets/Human_Nature.jpg"
-import useFetch from "../hooks/useFetch";
 import { Link, useLocation } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
+import {db} from '../firebase/index.js'
+import { collection, doc, getDocs } from 'firebase/firestore';
 
 export default function BookList() {
 
@@ -11,7 +12,19 @@ export default function BookList() {
 
   let search=params.get('search');
 
-  let {data : books,loading,error} =useFetch(`http://localhost:3000/books${search ? `?q=${search}` : ''}`);
+  let [error,setError]=useState('');
+  let [books,setBooks]=useState([]);
+  let [loading,setLoading]=useState(false);
+
+  useEffect(function(){
+    let ref =collection(db,'books');
+    getDocs(ref).then(docs=>{
+      docs.forEach(doc=>{
+        let book={id : doc.id, ...doc.data()};
+        console.log(book);
+      })
+    })
+  },[])
 
   if (error) {
     return <p>{error}</p>
