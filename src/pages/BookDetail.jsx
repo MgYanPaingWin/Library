@@ -37,7 +37,7 @@ export default function BookDetail() {
           className={`grid grid-cols-2 h-screen ${isDark ? "text-white" : ""}`}
         >
           <div>
-            <img src={Human_Nature} alt="" className="w-[80%]" />
+            <img src={Human_Nature} alt="" className="max-h-[500px] object-contain mx-auto" />
           </div>
           <div className="space-y-4">
             <h1 className="text-3xl font-bold">{book.title}</h1>
