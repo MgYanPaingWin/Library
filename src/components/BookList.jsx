@@ -3,7 +3,7 @@ import Human_Nature from "../assets/Human_Nature.jpg";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import { db } from "../firebase/index.js";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function BookList() {
   let location = useLocation();
@@ -21,6 +21,7 @@ export default function BookList() {
     getDocs(ref).then((docs) => {
       if (docs.empty) {
         setError("No books found");
+        setLoading(false);
       } else {
         let books = [];
         docs.forEach((doc) => {
