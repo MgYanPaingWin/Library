@@ -3,7 +3,7 @@ import Human_Nature from "../assets/Human_Nature.jpg";
 import { Link, useLocation } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
 import { db } from "../firebase/index.js";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, orderBy, query } from "firebase/firestore";
 import trash from "../assets/delete.svg"
 
 export default function BookList() {
@@ -16,9 +16,11 @@ export default function BookList() {
   let [books, setBooks] = useState([]);
   let [loading, setLoading] = useState(false);
 
-  let deleteBook=(e)=>{
+  let deleteBook=async (e,id)=>{
     e.preventDefault();
-    console.log('hello word')
+    let ref=doc(db,'books',id);
+    await deleteDoc(ref);
+    setBooks(prev=>prev.filter(b=>b.id!==id));
   }
 
   useEffect(function () {
@@ -80,7 +82,7 @@ export default function BookList() {
                       </span>
                     ))}
                     </div>
-                    <div onClick={deleteBook}>
+                    <div onClick={(e)=>deleteBook(e,b.id)}>
                       <img src={trash} alt="" />
                     </div>
                   </div>
