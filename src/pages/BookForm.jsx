@@ -1,16 +1,27 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import useTheme from "../hooks/useTheme";
+import React, { useEffect, useState } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import useTheme from "../hooks/useTheme.js";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase/index.js";
 
 
 
 export default function Create() {
+  let {id}=useParams();
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [newcategory, setnewCategory] = useState("");
   let [categories, setCategories] = useState([]);
+  let [isEdit,setIsEdit]=useState(false);
+
+  useEffect(()=>{
+    if(id){
+      setIsEdit(true);
+    }else{
+      console.log('create')
+      setIsEdit(false);
+    }
+  },[])
 
 
   let navigate=useNavigate();
@@ -143,7 +154,7 @@ export default function Create() {
               d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
             />
           </svg>
-          <span className="hidden md:block">Create book</span>
+          <span className="hidden md:block">{isEdit ? 'Update' : 'Create'} book</span>
         </button>
       </div>
     </form>
