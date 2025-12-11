@@ -1,9 +1,14 @@
 import React from "react";
 
+let registerUser=(e)=>{
+  e.preventDefault();
+  console.log('hit')
+}
+
 export default function Register() {
   return (
     <div class="w-full max-w-lg mt-15 mx-auto">
-      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={registerUser}>
         <h1 className="text-2xl font-bold text-primary my-5">Register Form</h1>
         <div class="mb-4">
           <label
@@ -37,7 +42,7 @@ export default function Register() {
         <div class="flex items-center justify-between">
           <button
             class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
+            type="submit"
           >
             Register
           </button>
