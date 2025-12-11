@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase/config';
+import { auth } from '../firebase';
 
 export default function useSignup() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const singUp=async(email,password)=>{
+    const signUp=async(email,password)=>{
         try {
             setLoading(true);
             let res=await createUserWithEmailAndPassword(auth,email,password)
@@ -18,5 +18,5 @@ export default function useSignup() {
         }
     }
 
-    return {error,loading,signup}
+    return {error,loading,signUp}
 }
