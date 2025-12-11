@@ -10,6 +10,7 @@ export default function useSignup() {
         try {
             setLoading(true);
             let res=await createUserWithEmailAndPassword(auth,email,password)
+            setError('');
             setLoading(false);
             return res.user;
         } catch (e) {
