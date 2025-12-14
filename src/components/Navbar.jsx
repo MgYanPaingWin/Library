@@ -106,6 +106,9 @@ export default function Navbar() {
             {isDark && <img src={lightIcon} alt="" className="w-8" onClick={()=>changeTheme('light')}/>}
             {!isDark && <img src={darkIcon} alt="" className="w-8"onClick={()=>changeTheme('dark')}/> }
           </div>
+          <div>
+            <button className="bg-red-500 text-white rounded-lg px-2 py-2 text-sm">Logout</button>
+          </div>
         </li>
       </ul>
     </nav>
