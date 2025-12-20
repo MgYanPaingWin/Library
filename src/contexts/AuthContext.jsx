@@ -9,8 +9,10 @@ let AuthReducer=(state,action)=>{
     switch (action.type) {
         case "LOG_IN":
             return {...state,user : action.payload}
-         case "LOG_OUT":
+        case "LOG_OUT":
             return {...state,user: null}
+        case "AUTH_READY":
+            return {...state,authReady: true}
         default:
             return state
     }
@@ -18,10 +20,11 @@ let AuthReducer=(state,action)=>{
 
 const AuthContextProvider=({children})=> {
 
-    let [state,dispatch]=useReducer(AuthReducer,{user : null})
+    let [state,dispatch]=useReducer(AuthReducer,{user : null,authReady: false})
 
     useEffect(()=>{
         onAuthStateChanged(auth,(user)=>{
+            dispatch({type: "AUTH_READY"})
             if (user) {
                 dispatch({type : "LOG_IN", payload : "user"})
             }else{
