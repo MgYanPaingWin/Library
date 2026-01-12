@@ -4,6 +4,8 @@ import useTheme from "../hooks/useTheme";
 import trash from "../assets/delete.svg";
 import pencil from "../assets/pencil.svg";
 import useFireStore from "../hooks/useFireStore.js";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext.jsx";
 
 export default function BookList() {
   let location = useLocation();
@@ -13,7 +15,9 @@ export default function BookList() {
 
   let {getCollection,deleteDocument}=useFireStore();
 
-  let {error, data:books, loading}=getCollection("books");
+  let {user}=useContext(AuthContext);
+  
+  let {error, data:books, loading}=getCollection("books",['uid','==',user.uid]);
 
   let deleteBook = async (e, id) => {
     e.preventDefault();

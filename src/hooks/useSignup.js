@@ -9,7 +9,6 @@ export default function useSignup() {
     const signUp=async(email,password)=>{
         try {
             setLoading(true);
-            console.log(email,password);
             let res=await createUserWithEmailAndPassword(auth,email,password)
             setError('');
             setLoading(false);

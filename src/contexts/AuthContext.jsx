@@ -26,7 +26,7 @@ const AuthContextProvider=({children})=> {
         onAuthStateChanged(auth,(user)=>{
             dispatch({type: "AUTH_READY"})
             if (user) {
-                dispatch({type : "LOG_IN", payload : "user"})
+                dispatch({type : "LOG_IN", payload : user})
             }else{
                 dispatch({type : "LOG_OUT"})
             }

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import useTheme from "../hooks/useTheme.js";
 import { db } from "../firebase/index.js";
 import useFireStore from "../hooks/useFireStore.js";
-import { doc, getDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { AuthContext } from "../contexts/AuthContext";
 
 export default function Create() {
   let { id } = useParams();
@@ -45,6 +46,8 @@ export default function Create() {
     setnewCategory("");
   };
 
+  let {user}=useContext(AuthContext);
+
   let submitForm =async (e) => {
     e.preventDefault();
 
@@ -52,7 +55,7 @@ export default function Create() {
       title,
       description,
       categories,
-      date: serverTimestamp(),
+      uid:user.uid
     };
 
     if(isEdit){

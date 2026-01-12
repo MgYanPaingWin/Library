@@ -1,18 +1,26 @@
-import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc, where } from "firebase/firestore";
+import React, { useEffect, useRef, useState } from "react";
 import { db } from "../firebase";
 
 export default function useFireStore() {
+  
   //get collection
-  let getCollection = (colName) => {
+  let getCollection = (colName,_q) => {
+    let qRef=useRef(_q).current
     let [error, setError] = useState("");
     let [data, setData] = useState([]);
     let [loading, setLoading] = useState(false);
+
     useEffect(function () {
       setLoading(true);
-      let ref = collection(db, colName);
+      let ref = collection(db,  colName);
+      let queries=[];
+      if(qRef){
+        queries.push(where(...qRef))
+      }
+      queries.push(orderBy("date","desc"));
+      let q = query(ref,...queries);
 
-      let q = query(ref, orderBy("date", "desc"));
       onSnapshot(q, (docs) => {
         if (docs.empty) {
           setError("No books found");
@@ -28,7 +36,7 @@ export default function useFireStore() {
           setError("");
         }
       });
-    }, []);
+    }, [qRef]);
     return { error, data, loading };
   };
 

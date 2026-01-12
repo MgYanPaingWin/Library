@@ -4,13 +4,15 @@ import { getAuth } from 'firebase/auth';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCsZ6GMdFY5w2Y4Gh4ac_pfCSvnDkdIHjc",
-  authDomain: "librra-app.firebaseapp.com",
-  projectId: "librra-app",
-  storageBucket: "librra-app.firebasestorage.app",
-  messagingSenderId: "83034154492",
-  appId: "1:83034154492:web:45e52ef2512d3cbd743e79"
+  apiKey: "AIzaSyB2yLV735NNIc_xFEnGoFXjngsoWXCP9d8",
+  authDomain: "library-app-627a3.firebaseapp.com",
+  projectId: "library-app-627a3",
+  storageBucket: "library-app-627a3.firebasestorage.app",
+  messagingSenderId: "645169766964",
+  appId: "1:645169766964:web:c3e12d5b4a1bff167ca061",
+  measurementId: "G-EFBY730R8Z"
 };
+
 const app = initializeApp(firebaseConfig);
 
 let db=getFirestore(app);
