@@ -14,6 +14,8 @@ export default function Create() {
   let [categories, setCategories] = useState([]);
   let [isEdit, setIsEdit] = useState(false);
   let {addCollection,updateDocument}=useFireStore();
+  let [file,setFile]=useState(null);
+  let [preview,setPreview]=useState('');
 
   useEffect(() => {
     if (id) {
@@ -48,6 +50,26 @@ export default function Create() {
 
   let {user}=useContext(AuthContext);
 
+  let handlePhotoChange=(e)=>{
+    setFile(e.target.files[0]);  
+  }
+
+  let handlePreviewImage=(file)=>{
+    let reader=new FileReader;
+    reader.readAsDataURL(file);
+
+    reader.onload=()=>{
+      setPreview(reader.result);
+    }
+  }
+
+  useEffect(()=>{
+    if(file){
+      handlePreviewImage(file)
+    }
+
+  },[file])
+
   let submitForm =async (e) => {
     e.preventDefault();
 
@@ -69,7 +91,7 @@ export default function Create() {
   let { isDark } = useTheme();
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="min-h-screen overflow-y-auto">
       <form className="w-full max-w-lg mx-auto mt-5" onSubmit={submitForm}>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
@@ -163,6 +185,19 @@ export default function Create() {
                 {c}
               </span>
             ))}
+          </div>
+
+          <div className="w-full px-3 my-3">
+            <label
+              className={`block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 ${
+                isDark ? "text-white" : ""
+              }`}
+              htmlFor="grid-password"
+            >
+              Book Title
+            </label>
+            <input type="file" name="" id="" onChange={handlePhotoChange}/>
+            {!!preview && <img src={preview} alt="" className="my-3"  style={{ width: 500, height: 300, objectFit: "cover" }}/>}
           </div>
 
           <button className="text-white bg-primary px-3 py-2 rounded-2xl flex justify-center items-center gap-1 w-full">
