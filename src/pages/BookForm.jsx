@@ -15,11 +15,8 @@ export default function Create() {
   let [categories, setCategories] = useState([]);
   let [isEdit, setIsEdit] = useState(false);
   let {addCollection,updateDocument}=useFireStore();
-  let [file,setFile]=useState(null);
-  let [preview,setPreview]=useState('');
 
   let {user}=useContext(AuthContext);
-
 
   useEffect(() => {
     if (id) {
@@ -53,43 +50,13 @@ export default function Create() {
   };
 
 
-  let handlePhotoChange=(e)=>{
-    setFile(e.target.files[0]);  
-  }
-
-  let handlePreviewImage=(file)=>{
-    let reader=new FileReader;
-    reader.readAsDataURL(file);
-
-    reader.onload=()=>{
-      setPreview(reader.result);
-    }
-  }
-
-  useEffect(()=>{
-    if(file){
-      handlePreviewImage(file)
-    }
-
-  },[file])
-
-  let uploadToFirebase=async(file)=>{
-     let uniqueFileName=Date.now()+"-"+file.name;
-    let path="/covers/"+user.uid+"/"+uniqueFileName;
-    let storageRef=ref(storage,path)
-    await uploadBytes(storageRef,file);
-    return getDownloadURL(storageRef);
-  }
-
   let submitForm =async (e) => {
     e.preventDefault();
-    let url=await uploadToFirebase(file)
     let data = {
       title,
       description,
       categories,
       uid:user.uid,
-      cover : url
     };
 
     if(isEdit){
@@ -208,8 +175,6 @@ export default function Create() {
             >
               Book Title
             </label>
-            <input type="file" name="" id="" onChange={handlePhotoChange}/>
-            {!!preview && <img src={preview} alt="" className="my-3"  style={{ width: 500, height: 300, objectFit: "cover" }}/>}
           </div>
 
           <button className="text-white bg-primary px-3 py-2 rounded-2xl flex justify-center items-center gap-1 w-full">
