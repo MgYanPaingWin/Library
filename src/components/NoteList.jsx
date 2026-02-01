@@ -42,7 +42,7 @@ export default function NoteList() {
         </div>
         <div className="mt-3">
           {n.notes}
-          {editNote?.id==n.id && <NoteForm type="update"/>}
+          {editNote?.id==n.id && <NoteForm type="update" setEditNote={setEditNote}/>}
           </div>
       </div>
     ))

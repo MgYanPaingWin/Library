@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useFireStore from "../hooks/useFireStore";
 import { useParams } from "react-router-dom";
 
-export default function NoteForm({type='create'}) {
+export default function NoteForm({ type = "create",setEditNote }) {
   let { id } = useParams();
   let [notes, setNotes] = useState("");
   let { addCollection } = useFireStore();
@@ -27,9 +27,18 @@ export default function NoteForm({type='create'}) {
         onChange={(e) => setNotes(e.target.value)}
       ></textarea>
       <div className="flex justify-end">
-        <button className="text-white bg-primary px-3 py-1 my-2 rounded-lg flex items-center gap-1">
-          <span className="hidden md:block">{type ==='create' ? "Add" : "Update"} note</span>
-        </button>
+        <div className="flex space-x-3">
+          <button className="text-white bg-primary px-3 py-1 my-2 rounded-lg flex items-center gap-1">
+            <span className="hidden md:block">
+              {type === "create" ? "Add" : "Update"} note
+            </span>
+          </button>
+          {type === "update" && 
+            <button type="button" onClick={()=>setEditNote(null)} className="text-primar border-2 border-primary px-3 py-1 my-2 rounded-lg flex items-center gap-1">
+              <span className="hidden md:block">Cancel</span>
+            </button>
+          }
+        </div>
       </div>
     </form>
   );
