@@ -2,29 +2,34 @@ import React, { useEffect, useState } from "react";
 import useFireStore from "../hooks/useFireStore";
 import { useParams } from "react-router-dom";
 
-export default function NoteForm({ type = "create", setEditNote,editNote }) {
+export default function NoteForm({ type = "create", setEditNote, editNote }) {
   let { id } = useParams();
   let [notes, setNotes] = useState("");
-  let { addCollection } = useFireStore();
+  let { addCollection, updateDocument } = useFireStore();
 
-  let addNote = (e) => {
+  let submit = async (e) => {
     e.preventDefault();
-    let noteData = {
-      bookId: id,
-      notes: notes,
-    };
-    addCollection("notes", noteData);
-    setNotes("");
+    if (type === "create") {
+      let noteData = {
+        bookId: id,
+        notes: notes,
+      };
+      await addCollection("notes", noteData);
+      setNotes("");
+    } else {
+      await updateDocument("notes", editNote.id, { notes: notes },false);
+      setEditNote(null);
+    }
   };
 
   useEffect(() => {
-    if(type==='update'){
+    if (type === "update") {
       setNotes(editNote.notes);
     }
-  }, [type])
+  }, [type]);
 
   return (
-    <form action="" onSubmit={addNote}>
+    <form action="" onSubmit={submit}>
       <textarea
         className="p-3 shadow-md border-2 outline-0 border-gray-300 bg-gray-100 w-full"
         name=""

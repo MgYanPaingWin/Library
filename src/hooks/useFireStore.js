@@ -80,11 +80,14 @@ export default function useFireStore() {
   };
 
   //update collection
-  let updateDocument = async (colName,id,data) => {
-    data.date=serverTimestamp();
+  let updateDocument = async (colName,id,data,updateDate=true) => {
+    if(updateDate){
+      data.date=serverTimestamp();
+    }
     let ref=doc(db,colName,id);
     return updateDoc(ref,data);
   };
 
   return { getCollection,getDocument, addCollection, deleteDocument, updateDocument };
 }
+
